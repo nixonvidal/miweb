@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NixonTech - Servicios digitales</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ESTILOS EXISTENTES (mantenidos para contexto) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #2c3e50, #4a235a);
+            color: #f5f5f5;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #4db8ff;
+            text-shadow: 0 0 10px rgba(77, 184, 255, 0.7);
+        }
+        
+        .logo i {
+            color: #00ccff;
+            font-size: 2.2rem;
+        }
+        
+        /* Navegación */
+        nav ul {
+            display: flex;
+            list-style: none;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        nav ul li {
+            position: relative;
+        }
+        
+        nav ul li a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #e0e0e0;
+            text-decoration: none;
+            padding: 12px 15px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        
+        nav ul li a:hover {
+            background: rgba(77, 184, 255, 0.15);
+            color: #4db8ff;
+        }
+        
+        nav ul li a i {
+            font-size: 1.1rem;
+        }
+        
+        /* Submenús */
+        .has-submenu > a::after {
+            content: '\f078';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 0.7rem;
+            margin-left: 5px;
+        }
+        
+        .submenu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: rgba(30, 30, 40, 0.95);
+            min-width: 200px;
+            list-style: none;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+            padding: 10px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .has-submenu:hover .submenu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .submenu li a {
+            padding: 10px 20px;
+            white-space: nowrap;
+        }
+        
+        .submenu li a:hover {
+            background: rgba(77, 184, 255, 0.2);
+        }
+        
+        /* Icono del carrito */
+        .cart-icon {
+            position: relative;
+            display: block;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff4d4d;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: bold;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* Contenido principal */
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(77, 184, 255, 0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #4db8ff, #00ffcc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: #d0d0d0;
+            line-height: 1.6;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #00ccff, #0066ff);
+            color: white;
+            padding: 12px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 102, 255, 0.4);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 102, 255, 0.6);
+        }
+        
+        /* Sección de destacados */
+        .featured {
+            margin: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.2rem;
+            color: #4db8ff;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, #00ccff, #0066ff);
+            margin: 10px auto;
+            border-radius: 3px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .feature-card {
+            background: rgba(30, 40, 50, 0.7);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(77, 184, 255, 0.3);
+        }
+        
+        .feature-card i {
+            font-size: 3rem;
+            color: #4db8ff;
+            margin-bottom: 20px;
+            background: rgba(77, 184, 255, 0.1);
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #f0f0f0;
+        }
+        
+        .feature-card p {
+            color: #b0b0b0;
+            line-height: 1.6;
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 50px 0 20px;
+            margin-top: 60px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            color: #4db8ff;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: #00ccff;
+        }
+        
+        .footer-column p, .footer-column li {
+            color: #b0b0b0;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-column ul li a {
+            color: #b0b0b0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer-column ul li a:hover {
+            color: #4db8ff;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: #f0f0f0;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: #4db8ff;
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            nav ul {
+                gap: 5px;
+            }
+            
+            nav ul li a {
+                padding: 10px 12px;
+                font-size: 0.95rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            nav ul {
+                justify-content: flex-start;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                padding: 15px 0;
+            }
+            
+            .logo {
+                margin-bottom: 15px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero {
+                padding: 60px 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .has-submenu > a::after {
+                display: none;
+            }
+            
+            .submenu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                background: rgba(30, 30, 40, 0.7);
+                box-shadow: none;
+                padding: 5px 0;
+                margin-top: 5px;
+                border: none;
+                border-radius: 8px;
+                left: 0;
+                transform: none;
+                width: 100%;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
+            
+            .has-submenu:hover .submenu,
+            .has-submenu:focus-within .submenu {
+                max-height: 300px;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 5px;
+            }
+            
+            nav ul li {
+                width: 100%;
+            }
+            
+            nav ul li a {
+                width: 100%;
+            }
+            
+            .submenu li a {
+                padding-left: 40px;
+            }
+        }
+
+        /* MODIFICACIONES PARA REDUCIR ESPACIOS EN LOGIN/REGISTRO */
+        .auth-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+        
+        .auth-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .auth-modal-content {
+            background: rgba(25, 35, 55, 0.95);
+            width: 90%;
+            max-width: 400px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            transform: translateY(50px);
+            transition: transform 0.5s ease;
+            border: 1px solid rgba(77, 184, 255, 0.3);
+        }
+        
+        .auth-modal.active .auth-modal-content {
+            transform: translateY(0);
+        }
+        
+        .auth-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .auth-modal-title {
+            font-size: 1.3rem;
+            color: #4db8ff;
+            font-weight: 600;
+        }
+        
+        .close-auth-modal {
+            background: none;
+            border: none;
+            color: #b0b0b0;
+            font-size: 1.6rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .close-auth-modal:hover {
+            color: #ff4d4d;
+        }
+        
+        .auth-tabs {
+            display: flex;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        .auth-tab {
+            flex: 1;
+            padding: 12px 0; /* Reducido de 14px */
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .auth-tab.active {
+            background: rgba(77, 184, 255, 0.1);
+            color: #4db8ff;
+            border-bottom: 3px solid #4db8ff;
+        }
+        
+        /* ESPACIOS REDUCIDOS */
+        .auth-tab-content {
+            padding: 10px 20px; /* Reducido de 12px */
+            position: relative;
+            overflow: hidden;
+            height: 430px; /* Aumentado para dar espacio a la imagen del león */
+        }
+        
+        .auth-forms-container {
+            display: flex;
+            width: 200%;
+            height: 100%;
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        
+        .auth-form {
+            width: 50%;
+            padding: 0 10px;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px; /* Reducido de 8px */
+        }
+        
+        .auth-form.active-form {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        #login-form {
+            left: 0;
+        }
+        
+        #register-form {
+            left: 50%;
+        }
+        
+        .form-group {
+            position: relative;
+            margin-bottom: 4px; /* Reducido de 5px */
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px; /* Reducido de 6px */
+            color: #b0b0b0;
+            font-weight: 500;
+            font-size: 0.85rem; /* Reducido de 0.9rem */
+        }
+        
+        /* ESTILOS UNIFICADOS PARA TODOS LOS INPUTS */
+        .input-with-icon {
+            position: relative;
+        }
+        
+        .input-with-icon input {
+            width: 100%;
+            padding: 8px 35px 8px 35px; /* Reducido verticalmente */
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #f0f0f0;
+            font-size: 0.85rem; /* Reducido de 0.9rem */
+            transition: all 0.3s ease;
+        }
+        
+        .input-with-icon input:focus {
+            border-color: #4db8ff;
+            box-shadow: 0 0 0 3px rgba(77, 184, 255, 0.2);
+            outline: none;
+        }
+        
+        /* Iconos para todos los inputs */
+        .input-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #b0b0b0;
+            font-size: 0.85rem; /* Reducido de 0.9rem */
+            transition: color 0.3s ease;
+        }
+        
+        .input-with-icon input:focus + .input-icon {
+            color: #4db8ff;
+        }
+        
+        /* Estilos para el botón de mostrar/ocultar contraseña */
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #b0b0b0;
+            cursor: pointer;
+            font-size: 0.85rem; /* Reducido de 0.9rem */
+            transition: color 0.3s ease;
+        }
+        
+        .toggle-password:hover {
+            color: #4db8ff;
+        }
+        
+        /* CENTRAMOS Y MEJORAMOS LOS BOTONES DE LOGIN/REGISTER */
+        .auth-btn {
+            background: linear-gradient(135deg, #00ccff, #0066ff);
+            color: white;
+            border: none;
+            padding: 10px; /* Reducido de 12px */
+            border-radius: 8px;
+            font-size: 0.95rem; /* Reducido de 1rem */
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 6px; /* Reducido de 8px */
+            box-shadow: 0 5px 15px rgba(0, 102, 255, 0.3);
+            display: block;
+            width: 80%;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .auth-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 102, 255, 0.5);
+        }
+        
+        .auth-footer {
+            text-align: center;
+            margin-top: 6px; /* Reducido de 8px */
+            color: #d0d0d0;
+            font-size: 0.8rem; /* Reducido de 0.85rem */
+        }
+        
+        .auth-footer p {
+            margin-bottom: 4px; /* Reducido de 6px */
+            line-height: 1.3; /* Ajustado de 1.4 */
+        }
+        
+        .auth-footer a {
+            color: #4db8ff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 500;
+        }
+        
+        .auth-footer a:hover {
+            text-decoration: underline;
+            color: #00ffcc;
+        }
+        
+        /* Responsive para el modal */
+        @media (max-width: 576px) {
+            .auth-modal-content {
+                width: 95%;
+                max-width: 350px;
+            }
+            
+            .auth-tab {
+                padding: 10px 0; /* Reducido de 12px */
+                font-size: 0.9rem; /* Reducido de 0.95rem */
+            }
+            
+            /* ESPACIOS REDUCIDOS EN MÓVILES */
+            .auth-tab-content {
+                padding: 8px 15px; /* Reducido de 10px */
+                height: 390px; /* Aumentado para dar espacio a la imagen del león */
+            }
+            
+            .auth-form {
+                gap: 5px; /* Reducido de 6px */
+            }
+            
+            .auth-modal-title {
+                font-size: 1.2rem;
+            }
+            
+            .close-auth-modal {
+                font-size: 1.5rem;
+            }
+            
+            .auth-btn {
+                width: 90%;
+                padding: 9px; /* Reducido de 10px */
+                font-size: 0.9rem; /* Reducido de 0.95rem */
+                margin-top: 5px; /* Reducido de 6px */
+            }
+            
+            .input-with-icon input {
+                padding: 7px 35px 7px 35px; /* Reducido verticalmente */
+                font-size: 0.8rem; /* Reducido de 0.85rem */
+            }
+            
+            .form-group label {
+                font-size: 0.8rem; /* Reducido de 0.85rem */
+            }
+            
+            .auth-footer {
+                font-size: 0.75rem; /* Reducido de 0.8rem */
+                margin-top: 4px; /* Reducido de 5px */
+            }
+            
+            .auth-footer p {
+                margin-bottom: 3px; /* Reducido de 4px */
+            }
+        }
+        
+        /* Botón de demostración */
+        .demo-button-container {
+            text-align: center;
+            margin: 20px 0 40px;
+        }
+        
+        .demo-button {
+            background: linear-gradient(135deg, #ff6b6b, #ff416c);
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4);
+        }
+        
+        .demo-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 65, 108, 0.6);
+        }
+        
+        /* Indicador de solución */
+        .solution-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(25, 35, 55, 0.95);
+            border: 1px solid rgba(77, 184, 255, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            max-width: 300px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 3000;
+        }
+        
+        .solution-indicator h3 {
+            color: #4db8ff;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .solution-indicator p {
+            color: #b0b0b0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .solution-indicator .highlight {
+            color: #00ffcc;
+            font-weight: 500;
+        }
+        
+        /* ESTILOS PARA LA IMAGEN DEL LEÓN */
+        .lion-container {
+            text-align: center;
+            margin: 15px 0 10px;
+        }
+        
+        .lion-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ff9900;
+            box-shadow: 0 0 15px rgba(255, 153, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .lion-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(255, 153, 0, 0.8);
+        }
+        
+        .lion-caption {
+            margin-top: 8px;
+            font-size: 0.9rem;
+            color: #ff9900;
+            font-weight: 500;
+            text-shadow: 0 0 5px rgba(255, 153, 0, 0.3);
+        }
+        
+        @media (max-width: 576px) {
+            .lion-image {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .lion-caption {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-laptop-code"></i>
+                    <span>NixonTech</span>
+                </div>
+                
+                <nav>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-home"></i> Inicio</a></li>
+                        
+                        <li class="has-submenu">
+                            <a href="#"><i class="fas fa-box-open"></i> Multimedia <i class="fas fa-chevron-down"></i></a>
+                            <ul class="submenu">
+                                <li><a href="#"><i class="fas fa-film"></i> Películas</a></li>
+                                <li><a href="#"><i class="fas fa-music"></i> Música</a></li>
+                                <li><a href="#"><i class="fas fa-book"></i> Libros</a></li>
+                                <li><a href="#"><i class="fas fa-tv"></i> TV en vivo</a></li>
+                                <li><a href="#"><i class="fas fa-radio"></i> Radio online</a></li>
+                                <li><a href="#"><i class="fas fa-newspaper"></i> Noticias</a></li>
+                                <li><a href="#"><i class="fas fa-check-circle"></i>Juegos</a></li>
+                                <li><a href="#"><i class="fas fa-calendar-alt"></i> Eventos</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="has-submenu">
+                            <a href="#"><i class="fas fa-tools"></i> Utilidades <i class="fas fa-chevron-down"></i></a>
+                            <ul class="submenu">
+                                <li><a href="#"><i class="fas fa-wrench"></i> Herramientas</a></li>
+                                <li><a href="#"><i class="fas fa-desktop"></i> App Store</a></li>
+                                <li><a href="#"><i class="fas fa-check-circle"></i>Vpstools</a></li>
+                                 
+                                 
+                            </ul>
+                        </li>
+                        
+                        <li class="has-submenu">
+                            <a href="#"><i class="fas fa-graduation-cap"></i> Cursos <i class="fas fa-chevron-down"></i></a>
+                            
+                        </li>
+                        
+                        <li class="has-submenu">
+                            <a href="#"><i class="fas fa-percent"></i> Servicios </a>
+                            <ul class="submenu">
+                                <li><a href="#"><i class="fas fa-wifi"></i> Internet</a></li>
+                                <li><a href="#"><i class="fas fa-server"></i> Hosting</a></li>
+                                <li><a href="#"><i class="fas fa-globe"></i> Dominios</a></li>
+                                <li><a href="#"><i class="fas fa-cogs"></i> MC System</a></li>
+                                <li><a href="#"><i class="fas fa-crown"></i> Cuentas VIP</a></li>
+                                <li><a href="#"><i class="fas fa-check-circle"></i> Checker</a></li>
+                                <li><a href="#"><i class="fas fa-check-circle"></i> Licencias</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li><a href="#"><i class="fas fa-store"></i> Tienda</a></li>
+                        <li><a href="#"><i class="fas fa-book"></i> Tutoriales</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> Contacto</a></li>
+                        <li><a href="#" id="open-auth-modal"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                        <li>
+                            <a href="#" class="cart-icon" id="open-cart">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span class="cart-count">3</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Contenido Principal -->
+    <main class="container">
+        <section class="hero">
+            <h1>plataforma multiproposito 24/7</h1>
+            <p>Nixontech ofrece los mejores servicios digitales a tu disposición, con tecnologías de última generación. Explora todas las opciones.</p>
+            <a href="#" class="cta-button">Explorar Contenidos</a>
+        </section>
+        
+        <section class="featured">
+            <h2 class="section-title">Variedad de Contenidos</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-exchange-alt"></i>
+                    <h3>Multimedia Exclusivo</h3>
+                    <p>Animación de deslizamiento horizontal con efecto de rebote para cambiar entre login y registro.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-paint-brush"></i>
+                    <h3>Utilidades multiplataforma</h3>
+                    <p>Mantiene la estética tecnológica del sitio con degradados y efectos de iluminación.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Cursos VIP</h3>
+                    <p>Funciona perfectamente en dispositivos móviles y de escritorio.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Servicios Digitales</h3>
+                    <p>Transiciones con aceleración personalizada para una experiencia natural.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Tienda Virtual </h3>
+                    <p>Transiciones con aceleración personalizada para una experiencia natural.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Tutoriales Dinamicos </h3>
+                    <p>Transiciones con aceleración personalizada para una experiencia natural.</p>
+                </div>
+            </div>
+            
+            <div class="demo-button-container">
+                <button class="demo-button" id="demo-button">SERVICIOS VIP REGISTRATE</button>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>NixonTech</h3>
+                    <p>Especialistas en interfaces de usuario fluidas y experiencias digitales excepcionales.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Recursos</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Documentación</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Tutoriales</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Ejemplos</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Comunidad</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Tecnologías</h3>
+                    <ul>
+                        <li><a href="#"><i class="fab fa-html5"></i> HTML5</a></li>
+                        <li><a href="#"><i class="fab fa-css3-alt"></i> CSS3</a></li>
+                        <li><a href="#"><i class="fab fa-js"></i> JavaScript</a></li>
+                        <li><a href="#"><i class="fab fa-font-awesome"></i> Font Awesome</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Av. Animaciones 456, Ciudad Digital</li>
+                        <li><i class="fas fa-phone"></i> +51 974-312-499</li>
+                        <li><i class="fas fa-envelope"></i> servis@nixontech.com</li>
+                        <li><i class="fas fa-clock"></i> Lunes a Viernes: 9AM - 6PM</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2026 NixonTech. Derechos de autor reservado.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal de Autenticación -->
+    <div class="auth-modal" id="auth-modal">
+        <div class="auth-modal-content">
+            <div class="auth-modal-header">
+                <h2 class="auth-modal-title">Acceso NixonTech</h2>
+                <button class="close-auth-modal" id="close-auth-modal">&times;</button>
+            </div>
+            
+            <div class="auth-tabs">
+                <div class="auth-tab active" data-tab="login">Iniciar Sesión</div>
+                <div class="auth-tab" data-tab="register">Registrarse</div>
+            </div>
+            
+            <div class="auth-tab-content">
+                <div class="auth-forms-container">
+                    <!-- Formulario de Login -->
+                    <form id="login-form" class="auth-form active-form">
+                        <div class="form-group">
+                            <label for="login-email">Correo Electrónico</label>
+                            <div class="input-with-icon">
+                                <input type="email" id="login-email" placeholder="tu@email.com" required>
+                                <i class="fas fa-envelope input-icon"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="login-password">Contraseña</label>
+                            <div class="input-with-icon">
+                                <input type="password" id="login-password" placeholder="Tu contraseña" required>
+                                <i class="fas fa-lock input-icon"></i>
+                                <button type="button" class="toggle-password" data-target="login-password">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Contenedor para la imagen del león -->
+                        <div class="lion-container">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImEiIGN4PSI1MCUiIGN5PSI1MCUiIHI9IjUwJSIgZng9IjUwJSIgZnk9IjUwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmYjEwMCIgc3RvcC1vcGFjaXR5PSIxIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZmY3YzAwIiBzdG9wLW9wYWNpdHk9IjEiLz48L3JhZGlhbEdyYWRpZW50PjwvZGVmcz48cGF0aCBmaWxsPSJ1cmwoI2EpIiBkPSJNMTAsMzVDMTAsMjIgMjIsMTAgMzUsMTBjMTMsMCAyNSwxMiAyNSwyNVM0OCw2MCAzNSw2MEMyMiw2MCAxMCw0OCAxMCwzNXoiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMzIsNDBjMywzIDYsNSA5LDVjMywwIDYtMiA5LTVjLTMtMy02LTUtOS01QzM4LDM1IDM1LDM3IDMyLDQweiIvPjxwYXRoIGZpbGw9IiMwMDAiIGQ9Ik0zNSw0NGMxLDEgMiwyIDMsMmMxLDAgMi0xIDMtMmMtMS0xLTItMi0zLTJDMzcsNDIgMzYsNDMgMzUsNDR6Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTU1LDQwYzMsMyA2LDUgOSw1YzMsMCA2LTIgOS01Yy0zLTMtNi01LTktNUM2MSwzNSA1OCwzNyA1NSw0MHoiLz48cGF0aCBmaWxsPSIjMDAwIiBkPSJNNTgsNDRjMSwxIDIsMiAzLDJjMSwwIDItMSAzLTJjLTEtMS0yLTItMy0yQzYwLDQyIDU5LDQzIDU4LDQ0eiIvPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0zMCw1MGMtMy0yLTYtNC05LTZjMCwwIDAsMCAwLDBjMCwwIDAsMCAwLDBjMywyIDYsNCA5LDZDMzAsNTAgMzAsNTAgMzAsNTB6Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTcwLDUwYzMtMiA2LTQgOS02YzAsMCwwLDAgMCwwYzAsMCwwLDAgMCwwYy0zLDItNiw0LTksNkM3MCw1MCA3MCw1MCA3MCw1MHoiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNNDAsNjBjMC0zLTMtNS02LTVjLTMsMC02LDIgLTYsNWMwLDAsMCwwLDAsMGMxLDQgMyw2IDYsNkM0Myw2NiA0NSw2NCA0Niw2MEM0Niw2MCA0Niw2MCA0Niw2MEM0Niw1OCA0Myw1NiA0MCw1NkMzNyw1NiAzNCw1OCAzNCw2MEMzNCw2MCAzNCw2MCAzNCw2MEMzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MEM0Niw2MCA0Niw2MCA0Niw2MEM0Niw1OCA0Myw1NiA0MCw1NkMzNyw1NiAzNCw1OCAzNCw2MEMzNCw2MCAzNCw2MCAzNCw2MEMzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MEM0Niw2MCA0Niw2MCA0Niw2MEM0Niw1OCA0Myw1NiA0MCw1NkMzNyw1NiAzNCw1OCAzNCw2MEMzNCw2MCAzNCw2MCAzNCw2MEMzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MEM0Niw2MCA0Niw2MCA0Niw2MEM0Niw1OCA0Myw1NiA0MCw1NkMzNyw1NiAzNCw1OCAzNCw2MEMzNCw2MCAzNCw2MCAzNCw2MEMzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MEM0Niw2MCA0Niw2MCA0Niw2MEM0Niw1OCA0Myw1NiA0MCw1NkMzNyw1NiAzNCw1OCAzNCw2MEMzNCw2MCAzNCw2MCAzNCw2MEMzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MEM0Niw2MCA0Niw2MCA0Niw2MEM0Niw1OCA0Myw1NiA0MCw1NkMzNyw1NiAzNCw1OCAzNCw2MEMzNCw2MCAzNCw2MCAzNCw2MEMzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MEM0Niw2MCA0Niw2MCA0Niw2MEM0Niw1OCA0Myw1NiA0MCw1NkMzNyw1NiAzNCw1OCAzNCw2MEMzNCw2MCAzNCw2MCAzNCw2MEMzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MEM0Niw2MCA0Niw2MCA0Niw2MEM0Niw1OCA0Myw1NiA0MCw1NkMzNyw1NiAzNCw1OCAzNCw2MEMzNCw2MCAzNCw2MCAzNCw2MEMzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MEM0Niw2MCA0Niw2MCA0Niw2MEM0Niw1OCA0Myw1NiA0MCw1NkMzNyw1NiAzNCw1OCAzNCw2MEMzNCw2MCAzNCw2MCAzNCw2MEMzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MEM0Niw2MCA0Niw2MCA0Niw2MEM0Niw1OCA0Myw1NiA0MCw1NkMzNyw1NiAzNCw1OCAzNCw2MEMzNCw2MCAzNCw2MCAzNCw2MEMzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MEM0Niw2MCA0Niw2MCA0Niw2MEM0Niw1OCA0Myw1NiA0MCw1NkMzNyw1NiAzNCw1OCAzNCw2MEMzNCw2MCAzNCw2MCAzNCw2MEMzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MEM0Niw2MCA0Niw2MCA0Niw2MEM0Niw1OCA0Myw1NiA0MCw1NkMzNyw1NiAzNCw1OCAzNCw2MEMzNCw2MCAzNCw2MCAzNCw2MEMzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MEM0Niw2MCA0Niw2MCA0Niw2MEM0Niw1OCA0Myw1NiA0MCw1NkMzNyw1NiAzNCw1OCAzNCw2MEMzNCw2MCAzNCw2MCAzNCw2MEMzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MEM0Niw2MCA0Niw2MCA0Niw2MEM0Niw1OCA0Myw1NiA0MCw1NkMzNyw1NiAzNCw1OCAzNCw2MEMzNCw2MCAzNCw2MCAzNCw2MEMzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MEM0Niw2MCA0Niw2MCA0Niw2MEM0Niw1OCA0Myw1NiA0MCw1NkMzNyw1NiAzNCw1OCAzNCw2MEMzNCw2MCAzNCw2MCAzNCw2MEMzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MEM0Niw2MCA0Niw2MCA0Niw2MEM0Niw1OCA0Myw1NiA0MCw1NkMzNyw1NiAzNCw1OCAzNCw2MEMzNCw2MCAzNCw2MCAzNCw2MEMzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MEM0Niw2MCA0Niw2MCA0Niw2MEM0Niw1OCA0Myw1NiA0MCw1NkMzNyw1NiAzNCw1OCAzNCw2MEMzNCw2MCAzNCw2MCAzNCw2MEMzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MEM0Niw2MCA0Niw2MCA0Niw2MEM0Niw1OCA0Myw1NiA0MCw1NkMzNyw1NiAzNCw1OCAzNCw2MEMzNCw2MCAzNCw2MCAzNCw2MEMzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MEM0Niw2MCA0Niw2MCA0Niw2MEM0Niw1OCA0Myw1NiA0MCw1NkMzNyw1NiAzNCw1OCAzNCw2MEMzNCw2MCAzNCw2MCAzNCw2MEMzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MEM0Niw2MCA0Niw2MCA0Niw2MEM0Niw1OCA0Myw1NiA0MCw1NkMzNyw1NiAzNCw1OCAzNCw2MEMzNCw2MCAzNCw2MCAzNCw2MEMzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MEM0Niw2MCA0Niw2MCA0Niw2MEM0Niw1OCA0Myw1NiA0MCw1NkMzNyw1NiAzNCw1OCAzNCw2MEMzNCw2MCAzNCw2MCAzNCw2MEMzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MEM0Niw2MCA0Niw2MCA0Niw2MEM0Niw1OCA0Myw1NiA0MCw1NkMzNyw1NiAzNCw1OCAzNCw2MEMzNCw2MCAzNCw2MCAzNCw2MEMzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MEM0Niw2MCA0Niw2MCA0Niw2MEM0Niw1OCA0Myw1NiA0MCw1NkMzNyw1NiAzNCw1OCAzNCw2MEMzNCw2MCAzNCw2MCAzNCw2MEMzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MEM0Niw2MCA0Niw2MCA0Niw2MEM0Niw1OCA0Myw1NiA0MCw1NkMzNyw1NiAzNCw1OCAzNCw2MEMzNCw2MCAzNCw2MCAzNCw2MEMzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MEM0Niw2MCA0Niw2MCA0Niw2MEM0Niw1OCA0Myw1NiA0MCw1NkMzNyw1NiAzNCw1OCAzNCw2MEMzNCw2MCAzNCw2MCAzNCw2MEMzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MEM0Niw2MCA0Niw2MCA0Niw2MEM0Niw1OCA0Myw1NiA0MCw1NkMzNyw1NiAzNCw1OCAzNCw2MEMzNCw2MCAzNCw2MCAzNCw2MEMzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MEM0Niw2MCA0Niw2MCA0Niw2MEM0Niw1OCA0Myw1NiA0MCw1NkMzNyw1NiAzNCw1OCAzNCw2MEMzNCw2MCAzNCw2MCAzNCw2MEMzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MEM0Niw2MCA0Niw2MCA0Niw2MEM0Niw1OCA0Myw1NiA0MCw1NkMzNyw1NiAzNCw1OCAzNCw2MEMzNCw2MCAzNCw2MCAzNCw2MEMzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MEM0Niw2MCA0Niw2MCA0Niw2MEM0Niw1OCA0Myw1NiA0MCw1NkMzNyw1NiAzNCw1OCAzNCw2MEMzNCw2MCAzNCw2MCAzNCw2MEMzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MEM0Niw2MCA0Niw2MCA0Niw2MEM0Niw1OCA0Myw1NiA0MCw1NkMzNyw1NiAzNCw1OCAzNCw2MEMzNCw2MCAzNCw6MCw2MUMzNyw2MyA0MCw2MyA0Myw2M0M0Niw2MSA0Niw2MCA0Niw2MCA0Niw2MCA0Niw1OCA0Myw1NiA0MCw1NiAzNyw1NiAzNCw1OCAzNCw2MCAzNCw2MCAzNCw2MCAzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MCA0Niw2MCA0Niw2MCA0Niw1OCA0Myw1NiA0MCw1NiAzNyw1NiAzNCw1OCAzNCw2MCAzNCw2MCAzNCw2MCAzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MCA0Niw2MCA0Niw2MCA0Niw1OCA0Myw1NiA0MCw1NiAzNyw1NiAzNCw1OCAzNCw2MCAzNCw2MCAzNCw2MCAzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MCA0Niw2MCA0Niw2MCA0Niw1OCA0Myw1NiA0MCw1NiAzNyw1NiAzNCw1OCAzNCw2MCAzNCw2MCAzNCw2MCAzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MCA0Niw2MCA0Niw2MCA0Niw1OCA0Myw1NiA0MCw1NiAzNyw1NiAzNCw1OCAzNCw2MCAzNCw2MCAzNCw2MCAzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MCA0Niw2MCA0Niw2MCA0Niw1OCA0Myw1NiA0MCw1NiAzNyw1NiAzNCw1OCAzNCw2MCAzNCw2MCAzNCw2MCAzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MCA0Niw2MCA0Niw2MCA0Niw1OCA0Myw1NiA0MCw1NiAzNyw1NiAzNCw1OCAzNCw2MCAzNCw2MCAzNCw2MCAzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MCA0Niw2MCA0Niw2MCA0Niw1OCA0Myw1NiA0MCw1NiAzNyw1NiAzNCw1OCAzNCw2MCAzNCw2MCAzNCw2MCAzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MCA0Niw2MCA0Niw2MCA0Niw1OCA0Myw1NiA0MCw1NiAzNyw1NiAzNCw1OCAzNCw2MCAzNCw2MCAzNCw2MCAzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MCA0Niw2MCA0Niw2MCA0Niw1OCA0Myw1NiA0MCw1NiAzNyw1NiAzNCw1OCAzNCw2MCAzNCw2MCAzNCw2MCAzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MCA0Niw2MCA0Niw2MCA0Niw1OCA0Myw1NiA0MCw1NiAzNyw1NiAzNCw1OCAzNCw2MCAzNCw2MCAzNCw2MCAzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MCA0Niw2MCA0Niw2MCA0Niw1OCA0Myw1NiA0MCw1NiAzNyw1NiAzNCw1OCAzNCw2MCAzNCw2MCAzNCw2MCAzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MCA0Niw2MCA0Niw2MCA0Niw1OCA0Myw1NiA0MCw1NiAzNyw1NiAzNCw1OCAzNCw2MCAzNCw2MCAzNCw2MCAzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA0Niw2MCA0Niw2MCA0Niw2MCA0Niw1OCA0Myw1NiA0MCw1NiAzNyw1NiAzNCw1OCAzNCw2MCAzNCw2MCAzNCw2MCAzNCw2MSAzNyw2MyA0MCw2M0M0Myw2MyA0Niw2MSA4NCw2MGMtMy0yLTYtNC05LTZjMCwwIDAsMCAwLDBjMCwwIDAsMCAwLDBjMywyIDYsNCA5LDZDODQsNjAgODQsNjAgODQsNjB6Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTMwLDUwYy0zLTItNi00LTktNmMwLDAgMCwwIDAsMGMwLDAgMCwwIDAsMGMzLDIgNiw0IDksNkMzMCw1MCAzMCw1MCAzMCw1MHoiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNNzAsNTBjMy0yIDYtNCA5LTZjMCwwIDAsMCAwLDBjMCwwIDAsMCAwLDBjLTMsMi02LDQtOSw2QzcwLDUwIDcwLDUwIDcwLDUweiIvPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0zMCw1MGMtMy0yLTYtNC05LTZjMCwwIDAsMCAwLDBjMCwwIDAsMCAwLDBjMywyIDYsNCA5LDZDMzAsNTAgMzAsNTAgMzAsNTB6Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTcwLDUwYzMtMiA2LTQgOS02YzAsMCwwLDAgMCwwYzAsMCwwLDAgMCwwYy0zLDItNiw0LTksNkM3MCw1MCA3MCw1MCA3MCw1MHoiLz48L3N2Zz4=" alt="León Rugiente" class="lion-image">
+                            <div class="lion-caption">¡Protege tus datos como un león!</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <button type="submit" class="auth-btn">Iniciar Sesión</button>
+                        </div>
+                        
+                        <div class="auth-footer">
+                            <p>¿Olvidaste tu contraseña? <a href="#" id="forgot-password"><i class="fas fa-key"></i> Recuperar aquí</a></p>
+                            <p>¿No tienes cuenta? <a href="#" id="switch-to-register"><i class="fas fa-user-plus"></i> Regístrate ahora</a></p>
+                        </div>
+                    </form>
+                    
+                    <!-- Formulario de Registro -->
+                    <form id="register-form" class="auth-form">
+                        <div class="form-group">
+                            <label for="register-name">Nombre Completo</label>
+                            <div class="input-with-icon">
+                                <input type="text" id="register-name" placeholder="Tu nombre completo" required>
+                                <i class="fas fa-user input-icon"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="register-email">Correo Electrónico</label>
+                            <div class="input-with-icon">
+                                <input type="email" id="register-email" placeholder="tu@email.com" required>
+                                <i class="fas fa-envelope input-icon"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="register-password">Contraseña</label>
+                            <div class="input-with-icon">
+                                <input type="password" id="register-password" placeholder="Crea una contraseña" required>
+                                <i class="fas fa-lock input-icon"></i>
+                                <button type="button" class="toggle-password" data-target="register-password">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="register-confirm">Confirmar Contraseña</label>
+                            <div class="input-with-icon">
+                                <input type="password" id="register-confirm" placeholder="Confirma tu contraseña" required>
+                                <i class="fas fa-lock input-icon"></i>
+                                <button type="button" class="toggle-password" data-target="register-confirm">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <button type="submit" class="auth-btn">Crear Cuenta</button>
+                        </div>
+                        
+                        <div class="auth-footer">
+                            <p>Al registrarte aceptas nuestros <a href="#"><i class="fas fa-file-contract"></i> Términos y Condiciones</a></p>
+                            <p>¿Ya tienes cuenta? <a href="#" id="switch-to-login"><i class="fas fa-sign-in-alt"></i> Inicia sesión aquí</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const authModal = document.getElementById('auth-modal');
+            const openAuthModal = document.getElementById('open-auth-modal');
+            const demoButton = document.getElementById('demo-button');
+            const closeAuthModal = document.getElementById('close-auth-modal');
+            const switchToRegister = document.getElementById('switch-to-register');
+            const switchToLogin = document.getElementById('switch-to-login');
+            const authTabs = document.querySelectorAll('.auth-tab');
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            const formsContainer = document.querySelector('.auth-forms-container');
+            
+            // Abrir modal desde botón de login
+            openAuthModal.addEventListener('click', function(e) {
+                e.preventDefault();
+                openModal();
+            });
+            
+            // Abrir modal desde botón de demostración
+            demoButton.addEventListener('click', function() {
+                openModal();
+            });
+            
+            // Función para abrir el modal
+            function openModal() {
+                authModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                document.addEventListener('keydown', handleKeyDown);
+                switchTab('login');
+            }
+            
+            // Función para cerrar el modal
+            function closeModal() {
+                authModal.classList.remove('active');
+                document.body.style.overflow = '';
+                document.removeEventListener('keydown', handleKeyDown);
+            }
+            
+            // Cerrar modal con botón
+            closeAuthModal.addEventListener('click', function(e) {
+                e.stopPropagation();
+                closeModal();
+            });
+            
+            // Cerrar al hacer clic fuera del modal
+            authModal.addEventListener('click', function(e) {
+                if (e.target === authModal) {
+                    closeModal();
+                }
+            });
+            
+            // Cerrar con tecla ESC
+            function handleKeyDown(e) {
+                if (e.key === 'Escape') {
+                    closeModal();
+                }
+            }
+            
+            // Cambiar a pestaña de registro
+            switchToRegister.addEventListener('click', function(e) {
+                e.preventDefault();
+                switchTab('register');
+            });
+            
+            // Cambiar a pestaña de login
+            switchToLogin.addEventListener('click', function(e) {
+                e.preventDefault();
+                switchTab('login');
+            });
+            
+            // Cambiar entre pestañas
+            authTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    switchTab(tabId);
+                });
+            });
+            
+            // Función para cambiar de pestaña con animación
+            function switchTab(tabId) {
+                // Actualizar pestañas activas
+                authTabs.forEach(tab => {
+                    if (tab.getAttribute('data-tab') === tabId) {
+                        tab.classList.add('active');
+                    } else {
+                        tab.classList.remove('active');
+                    }
+                });
+                
+                // Animación de transición
+                if (tabId === 'login') {
+                    formsContainer.style.transform = 'translateX(0)';
+                    loginForm.classList.add('active-form');
+                    registerForm.classList.remove('active-form');
+                } else {
+                    formsContainer.style.transform = 'translateX(-50%)';
+                    registerForm.classList.add('active-form');
+                    loginForm.classList.remove('active-form');
+                }
+            }
+            
+            // Toggle para mostrar/ocultar contraseña
+            const togglePasswordButtons = document.querySelectorAll('.toggle-password');
+            togglePasswordButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const passwordInput = document.getElementById(targetId);
+                    const icon = this.querySelector('i');
+                    
+                    if (passwordInput.type === 'password') {
+                        passwordInput.type = 'text';
+                        icon.classList.remove('fa-eye');
+                        icon.classList.add('fa-eye-slash');
+                    } else {
+                        passwordInput.type = 'password';
+                        icon.classList.remove('fa-eye-slash');
+                        icon.classList.add('fa-eye');
+                    }
+                });
+            });
+            
+            // Validación de formulario de login
+            document.getElementById('login-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+                
+                if (email && password) {
+                    // Aquí iría la lógica de autenticación real
+                    alert(`Inicio de sesión exitoso para: ${email}`);
+                    closeModal();
+                }
+            });
+            
+            // Validación de formulario de registro
+            document.getElementById('register-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('register-name').value;
+                const email = document.getElementById('register-email').value;
+                const password = document.getElementById('register-password').value;
+                const confirmPassword = document.getElementById('register-confirm').value;
+                
+                if (password !== confirmPassword) {
+                    alert('Las contraseñas no coinciden');
+                    return;
+                }
+                
+                if (name && email && password) {
+                    // Aquí iría la lógica de registro real
+                    alert(`Registro exitoso para: ${name} (${email})`);
+                    switchTab('login');
+                }
+            });
+            
+            // Simular clic para mostrar la animación al cargar la página
+            setTimeout(() => {
+                if (window.location.hash === "#demo") {
+                    demoButton.click();
+                }
+            }, 500);
+        });
+    </script>
+</body>
+</html>
