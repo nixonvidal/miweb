@@ -785,6 +785,273 @@
                 margin-bottom: 3px; /* Reducido de 4px */
             }
         }
+
+        /* Styles for Terms and Conditions Modal */
+        .terms-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85); /* Same as auth-modal */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000; /* Same as auth-modal */
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease; /* Same as auth-modal */
+        }
+
+        .terms-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .terms-modal-content {
+            background: rgba(25, 35, 55, 0.95); /* Same as auth-modal-content */
+            width: 90%;
+            max-width: 700px; /* Slightly wider for more text */
+            border-radius: 15px; /* Same as auth-modal-content */
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5); /* Same as auth-modal-content */
+            transform: translateY(50px); /* Same as auth-modal-content */
+            transition: transform 0.5s ease; /* Same as auth-modal-content */
+            border: 1px solid rgba(77, 184, 255, 0.3); /* Same as auth-modal-content */
+            display: flex;
+            flex-direction: column;
+            max-height: 80vh; /* Limit height and enable scrolling */
+        }
+
+        .terms-modal.active .terms-modal-content {
+            transform: translateY(0); /* Same as auth-modal-content */
+        }
+
+        .terms-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px; /* Same as auth-modal-header */
+            background: rgba(0, 0, 0, 0.3); /* Same as auth-modal-header */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Same as auth-modal-header */
+        }
+
+        .terms-modal-title {
+            font-size: 1.3rem; /* Same as auth-modal-title */
+            color: #4db8ff; /* Same as auth-modal-title */
+            font-weight: 600;
+        }
+
+        .close-terms-modal {
+            background: none;
+            border: none;
+            color: #b0b0b0; /* Same as close-auth-modal */
+            font-size: 1.6rem; /* Same as close-auth-modal */
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-terms-modal:hover {
+            color: #ff4d4d; /* Same as close-auth-modal */
+        }
+
+        .terms-modal-body {
+            padding: 20px 25px;
+            overflow-y: auto; /* Enable scrolling for content */
+            color: #d0d0d0; /* Light text color for readability */
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .terms-modal-body p {
+            margin-bottom: 15px;
+        }
+
+        .terms-modal-footer {
+            padding: 15px 20px;
+            text-align: right;
+            background: rgba(0, 0, 0, 0.2); /* Slightly different from header */
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .terms-accept-btn {
+            background: linear-gradient(135deg, #00ccff, #0066ff); /* Same as auth-btn */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 102, 255, 0.3);
+        }
+
+        .terms-accept-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 102, 255, 0.5);
+        }
+
+        /* Responsive adjustments for terms modal if needed */
+        @media (max-width: 768px) {
+            .terms-modal-content {
+                max-width: 95%;
+                max-height: 85vh;
+            }
+            .terms-modal-title {
+                font-size: 1.1rem;
+            }
+            .terms-modal-body {
+                padding: 15px 20px;
+            }
+            .terms-accept-btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Styles for Password Recovery Modal */
+        .recovery-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000; /* Ensure it's on the same level as other modals */
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .recovery-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .recovery-modal-content {
+            background: rgba(25, 35, 55, 0.95);
+            width: 90%;
+            max-width: 450px; /* Adjusted size for its content */
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            transform: translateY(50px);
+            transition: transform 0.5s ease;
+            border: 1px solid rgba(77, 184, 255, 0.3);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .recovery-modal.active .recovery-modal-content {
+            transform: translateY(0);
+        }
+
+        .recovery-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .recovery-modal-title {
+            font-size: 1.3rem;
+            color: #4db8ff;
+            font-weight: 600;
+        }
+
+        .close-recovery-modal {
+            background: none;
+            border: none;
+            color: #b0b0b0;
+            font-size: 1.6rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-recovery-modal:hover {
+            color: #ff4d4d;
+        }
+
+        .recovery-modal-body {
+            padding: 20px 25px;
+            color: #d0d0d0;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .recovery-modal-body p {
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        /* Re-using form-group and input-with-icon styles from auth-modal for consistency */
+        /* Ensure .form-group and .input-with-icon styles are general enough or duplicate if necessary */
+        /* The existing .form-group and .input-with-icon should work if structured the same way */
+
+        .recovery-modal-footer {
+            padding: 15px 20px;
+            text-align: right;
+            background: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .recovery-submit-btn,
+        .recovery-cancel-btn {
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .recovery-submit-btn {
+            background: linear-gradient(135deg, #00ccff, #0066ff); /* Main action button style */
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 102, 255, 0.3);
+        }
+
+        .recovery-submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 102, 255, 0.5);
+        }
+
+        .recovery-cancel-btn {
+            background: rgba(255, 255, 255, 0.1); /* Secondary button style */
+            color: #f0f0f0;
+        }
+
+        .recovery-cancel-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Responsive adjustments for recovery modal */
+        @media (max-width: 768px) {
+            .recovery-modal-content {
+                max-width: 95%;
+            }
+            .recovery-modal-title {
+                font-size: 1.1rem;
+            }
+            .recovery-modal-body {
+                padding: 15px 20px;
+            }
+            .recovery-submit-btn,
+            .recovery-cancel-btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+        }
         
         /* Botón de demostración */
         .demo-button-container {
@@ -1155,7 +1422,7 @@
                         </div>
                         
                         <div class="auth-footer">
-                            <p>Al registrarte aceptas nuestros <a href="#"><i class="fas fa-file-contract"></i> Términos y Condiciones</a></p>
+                            <p>Al registrarte aceptas nuestros <a href="#" id="open-terms-link"><i class="fas fa-file-contract"></i> Términos y Condiciones</a></p>
                             <p>¿Ya tienes cuenta? <a href="#" id="switch-to-login"><i class="fas fa-sign-in-alt"></i> Inicia sesión aquí</a></p>
                         </div>
                     </form>
@@ -1164,10 +1431,53 @@
         </div>
     </div>
 
+    <!-- Modal de Términos y Condiciones -->
+    <div class="terms-modal" id="terms-modal">
+        <div class="terms-modal-content">
+            <div class="terms-modal-header">
+                <h2 class="terms-modal-title">Términos y Condiciones</h2>
+                <button class="close-terms-modal" id="close-terms-modal">&times;</button>
+            </div>
+            <div class="terms-modal-body">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+                <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+            </div>
+            <div class="terms-modal-footer">
+                <button class="terms-accept-btn" id="terms-accept-btn">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Recuperar Contraseña -->
+    <div class="recovery-modal" id="recovery-modal">
+        <div class="recovery-modal-content">
+            <div class="recovery-modal-header">
+                <h2 class="recovery-modal-title">Recuperar Contraseña</h2>
+                <button class="close-recovery-modal" id="close-recovery-modal">&times;</button>
+            </div>
+            <div class="recovery-modal-body">
+                <p>Por favor, ingresa tu correo electrónico para enviarte un enlace de recuperación.</p>
+                <div class="form-group">
+                    <label for="recovery-email">Correo Electrónico</label>
+                    <div class="input-with-icon">
+                        <input type="email" id="recovery-email" placeholder="tu@email.com" required>
+                        <i class="fas fa-envelope input-icon"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="recovery-modal-footer">
+                <button class="recovery-submit-btn" id="recovery-submit-btn">Enviar Enlace</button>
+                <button class="recovery-cancel-btn" id="recovery-cancel-btn">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
     
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // --- Auth Modal Elements ---
             const authModal = document.getElementById('auth-modal');
             const openAuthModal = document.getElementById('open-auth-modal');
             const demoButton = document.getElementById('demo-button');
@@ -1178,85 +1488,185 @@
             const loginForm = document.getElementById('login-form');
             const registerForm = document.getElementById('register-form');
             const formsContainer = document.querySelector('.auth-forms-container');
-            
-            // Abrir modal desde botón de login
-            openAuthModal.addEventListener('click', function(e) {
-                e.preventDefault();
-                openModal();
-            });
-            
-            // Abrir modal desde botón de demostración
-            demoButton.addEventListener('click', function() {
-                openModal();
-            });
-            
-            // Función para abrir el modal
-            function openModal() {
-                authModal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-                document.addEventListener('keydown', handleKeyDown);
-                switchTab('login');
+
+            // --- Terms and Conditions Modal Elements ---
+            const termsModal = document.getElementById('terms-modal');
+            const openTermsLink = document.getElementById('open-terms-link'); // ID added in previous step
+            const closeTermsModalBtn = document.getElementById('close-terms-modal');
+            const termsAcceptBtn = document.getElementById('terms-accept-btn');
+
+            // --- Password Recovery Modal Elements ---
+            const recoveryModal = document.getElementById('recovery-modal');
+            const openRecoveryLink = document.getElementById('forgot-password');
+            // console.log('Debug: openRecoveryLink element:', openRecoveryLink); // Removed log
+            const closeRecoveryModalBtn = document.getElementById('close-recovery-modal');
+            const recoveryEmailInput = document.getElementById('recovery-email');
+            const recoverySubmitBtn = document.getElementById('recovery-submit-btn');
+            const recoveryCancelBtn = document.getElementById('recovery-cancel-btn');
+
+            // --- General Modal State Check ---
+            // It's useful to know if any modal is active for body overflow management
+            function isAnyModalActive() {
+                return (authModal && authModal.classList.contains('active')) ||
+                       (termsModal && termsModal.classList.contains('active')) ||
+                       (recoveryModal && recoveryModal.classList.contains('active'));
             }
             
-            // Función para cerrar el modal
-            function closeModal() {
-                authModal.classList.remove('active');
-                document.body.style.overflow = '';
-                document.removeEventListener('keydown', handleKeyDown);
-            }
-            
-            // Cerrar modal con botón
-            closeAuthModal.addEventListener('click', function(e) {
-                e.stopPropagation();
-                closeModal();
-            });
-            
-            // Cerrar al hacer clic fuera del modal
-            authModal.addEventListener('click', function(e) {
-                if (e.target === authModal) {
-                    closeModal();
-                }
-            });
-            
-            // Cerrar con tecla ESC
-            function handleKeyDown(e) {
-                if (e.key === 'Escape') {
-                    closeModal();
+            // --- Body Overflow Manager ---
+            // Call this when a modal opens or closes
+            function manageBodyOverflow() {
+                if (isAnyModalActive()) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
                 }
             }
-            
-            // Cambiar a pestaña de registro
-            switchToRegister.addEventListener('click', function(e) {
-                e.preventDefault();
-                switchTab('register');
-            });
-            
-            // Cambiar a pestaña de login
-            switchToLogin.addEventListener('click', function(e) {
-                e.preventDefault();
-                switchTab('login');
-            });
-            
-            // Cambiar entre pestañas
+
+            // --- Auth Modal Functions ---
+            function openAuthModalFunc() {
+                if (authModal) {
+                    authModal.classList.add('active');
+                    manageBodyOverflow();
+                    document.addEventListener('keydown', handleAuthKeyDown);
+                    switchTab('login');
+                }
+            }
+
+            function closeAuthModalFunc() {
+                if (authModal) {
+                    authModal.classList.remove('active');
+                    manageBodyOverflow();
+                    document.removeEventListener('keydown', handleAuthKeyDown);
+                }
+            }
+
+            function handleAuthKeyDown(e) {
+                if (e.key === 'Escape' && authModal && authModal.classList.contains('active')) { // Check if this specific modal is active
+                    closeAuthModalFunc();
+                }
+            }
+
+            // --- Terms Modal Functions ---
+            function openTermsModal() {
+                if (termsModal) {
+                    termsModal.classList.add('active');
+                    manageBodyOverflow();
+                    document.addEventListener('keydown', handleKeyDownTerms);
+                }
+            }
+
+            function closeTermsModal() {
+                if (termsModal) {
+                    termsModal.classList.remove('active');
+                    manageBodyOverflow();
+                    document.removeEventListener('keydown', handleKeyDownTerms);
+                }
+            }
+
+            function handleKeyDownTerms(e) {
+                if (e.key === 'Escape' && termsModal && termsModal.classList.contains('active')) { // Check if this specific modal is active
+                    closeTermsModal();
+                }
+            }
+
+            // --- Password Recovery Modal Functions ---
+            function openRecoveryModal() {
+                // console.log('Debug: openRecoveryModal() function called.'); // Removed log
+
+                // Close other modals first
+                if (authModal && authModal.classList.contains('active')) {
+                    closeAuthModalFunc();
+                }
+                if (termsModal && termsModal.classList.contains('active')) {
+                    closeTermsModal();
+                }
+
+                // Attempt to get the recovery modal element
+                const currentRecoveryModal = document.getElementById('recovery-modal');
+                // console.log('Debug: currentRecoveryModal fetched inside openRecoveryModal():', currentRecoveryModal); // Removed log
+
+                if (currentRecoveryModal) {
+                    // console.log('Debug: Attempting to add "active" class to currentRecoveryModal.'); // Removed log
+                    currentRecoveryModal.classList.add('active');
+                    manageBodyOverflow();
+                    document.addEventListener('keydown', handleKeyDownRecovery);
+                // } else {
+                    // console.error('Debug: recoveryModal element (id: recovery-modal) NOT FOUND inside openRecoveryModal() even after re-fetch!');  // Removed else block
+                }
+            }
+
+            function closeRecoveryModal() {
+                if (recoveryModal) {
+                    recoveryModal.classList.remove('active');
+                    manageBodyOverflow();
+                    document.removeEventListener('keydown', handleKeyDownRecovery);
+                    if (recoveryEmailInput) {
+                        recoveryEmailInput.value = ''; // Clear the input field
+                    }
+                }
+            }
+
+            function handleKeyDownRecovery(e) {
+                if (e.key === 'Escape' && recoveryModal && recoveryModal.classList.contains('active')) { // Check if this specific modal is active
+                    closeRecoveryModal();
+                }
+            }
+
+            // --- Event Listeners for Auth Modal ---
+            if (openAuthModal) {
+                openAuthModal.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openAuthModalFunc();
+                });
+            }
+
+            if (demoButton) {
+                demoButton.addEventListener('click', function() {
+                    openAuthModalFunc();
+                });
+            }
+
+            if (closeAuthModal) {
+                closeAuthModal.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    closeAuthModalFunc();
+                });
+            }
+
+            if (authModal) {
+                authModal.addEventListener('click', function(e) {
+                    if (e.target === authModal) {
+                        closeAuthModalFunc();
+                    }
+                });
+            }
+
+            if (switchToRegister) {
+                switchToRegister.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    switchTab('register');
+                });
+            }
+
+            if (switchToLogin) {
+                switchToLogin.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    switchTab('login');
+                });
+            }
+
             authTabs.forEach(tab => {
                 tab.addEventListener('click', function() {
                     const tabId = this.getAttribute('data-tab');
                     switchTab(tabId);
                 });
             });
-            
-            // Función para cambiar de pestaña con animación
+
             function switchTab(tabId) {
-                // Actualizar pestañas activas
                 authTabs.forEach(tab => {
-                    if (tab.getAttribute('data-tab') === tabId) {
-                        tab.classList.add('active');
-                    } else {
-                        tab.classList.remove('active');
-                    }
+                    tab.classList.toggle('active', tab.getAttribute('data-tab') === tabId);
                 });
-                
-                // Animación de transición
+
                 if (tabId === 'login') {
                     formsContainer.style.transform = 'translateX(0)';
                     loginForm.classList.add('active-form');
@@ -1267,8 +1677,36 @@
                     loginForm.classList.remove('active-form');
                 }
             }
-            
-            // Toggle para mostrar/ocultar contraseña
+
+            // --- Event Listeners for Terms Modal ---
+            if (openTermsLink) {
+                openTermsLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openTermsModal();
+                });
+            }
+
+            if (closeTermsModalBtn) {
+                closeTermsModalBtn.addEventListener('click', function() {
+                    closeTermsModal();
+                });
+            }
+
+            if (termsAcceptBtn) {
+                termsAcceptBtn.addEventListener('click', function() {
+                    closeTermsModal();
+                });
+            }
+
+            if (termsModal) {
+                termsModal.addEventListener('click', function(e) {
+                    if (e.target === termsModal) {
+                        closeTermsModal();
+                    }
+                });
+            }
+
+            // --- Common Utility Functions (e.g., Password Toggle, Form Validations) ---
             const togglePasswordButtons = document.querySelectorAll('.toggle-password');
             togglePasswordButtons.forEach(button => {
                 button.addEventListener('click', function() {
@@ -1287,43 +1725,43 @@
                     }
                 });
             });
+
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const email = document.getElementById('login-email').value;
+                    const password = document.getElementById('login-password').value;
+
+                    if (email && password) {
+                        alert(`Inicio de sesión exitoso para: ${email}`);
+                        closeAuthModalFunc(); // Use renamed function
+                    }
+                });
+            }
+
+            if (registerForm) {
+                registerForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const name = document.getElementById('register-name').value;
+                    const email = document.getElementById('register-email').value;
+                    const password = document.getElementById('register-password').value;
+                    const confirmPassword = document.getElementById('register-confirm').value;
+
+                    if (password !== confirmPassword) {
+                        alert('Las contraseñas no coinciden');
+                        return;
+                    }
+
+                    if (name && email && password) {
+                        alert(`Registro exitoso para: ${name} (${email})`);
+                        switchTab('login'); // Switch to login after successful registration
+                    }
+                });
+            }
             
-            // Validación de formulario de login
-            document.getElementById('login-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const email = document.getElementById('login-email').value;
-                const password = document.getElementById('login-password').value;
-                
-                if (email && password) {
-                    // Aquí iría la lógica de autenticación real
-                    alert(`Inicio de sesión exitoso para: ${email}`);
-                    closeModal();
-                }
-            });
-            
-            // Validación de formulario de registro
-            document.getElementById('register-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const name = document.getElementById('register-name').value;
-                const email = document.getElementById('register-email').value;
-                const password = document.getElementById('register-password').value;
-                const confirmPassword = document.getElementById('register-confirm').value;
-                
-                if (password !== confirmPassword) {
-                    alert('Las contraseñas no coinciden');
-                    return;
-                }
-                
-                if (name && email && password) {
-                    // Aquí iría la lógica de registro real
-                    alert(`Registro exitoso para: ${name} (${email})`);
-                    switchTab('login');
-                }
-            });
-            
-            // Simular clic para mostrar la animación al cargar la página
+            // Simular clic para mostrar la animación al cargar la página (for demo purposes)
             setTimeout(() => {
-                if (window.location.hash === "#demo") {
+                if (window.location.hash === "#demo" && demoButton) {
                     demoButton.click();
                 }
             }, 500);
